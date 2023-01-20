@@ -1,0 +1,56 @@
+.main__garage__car {
+  margin-bottom: 20px;
+}
+
+.main__garage__car__control {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.car__control__remove {
+  margin: 0 5px;
+}
+
+.main__garage__car__animation {
+  display: flex;
+}
+
+.car__animation__button-block {
+  display: flex;
+}
+
+.car__animation__button-block__start,
+.car__animation__button-block__stop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  border: 2px solid rgb(32 212 24);
+  border-radius: 10px;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.car__animation__button-block__stop {
+  border-color: rgb(229 19 19);
+}
+
+.active-button {
+  border-color: rgb(145 145 145);
+}
+
+.car__animation__car-block {
+  position: relative;
+  margin-left: 20px;
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  width: -webkit-fill-available;
+}
+
+.car__animation.fa-solid.fa-truck-monster {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 50px;
+}

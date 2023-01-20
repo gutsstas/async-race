@@ -1,0 +1,28 @@
+@import "./car";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.main__garage {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.main__garage__info {
+  display: flex;
+  margin-top: 10px;
+}
+
+.main__garage__info__name {
+  margin-right: 5px;
+}
+
+.main__garage__pagination {
+  display: flex;
+}
+
+.pagination__page {
+  margin: 0 10px;
+}
