@@ -2,26 +2,11 @@ import { getData } from '../Data/data';
 import { ICar, PAGEANDLIMIT } from '../../types/Interfaces';
 import { Car } from './car';
 import { ACTIVE } from './car';
-import { IQueryParams } from '../../types/Interfaces';
 
-export async function addCar(list: HTMLDivElement | Element) {
-  const arrayString = localStorage.getItem('AsyncRaceKeyAndValue');
-  let page: string | PAGEANDLIMIT = PAGEANDLIMIT.PAGEVALUE;
-  let limit: string | PAGEANDLIMIT = PAGEANDLIMIT.LIMITVALUE;
-
-  if (arrayString !== null) {
-    const arrayKeyValue: IQueryParams[] = JSON.parse(arrayString);
-
-    arrayKeyValue.forEach((item) => {
-      if (item.key == PAGEANDLIMIT.PAGE) page = item.value;
-
-      if (item.key == PAGEANDLIMIT.LIMIT) limit = item.value;
-    });
-  }
-
+export async function addCarsList(list: HTMLDivElement | Element, page: number) {
   const data = await getData([
-    { key: PAGEANDLIMIT.PAGE, value: page },
-    { key: PAGEANDLIMIT.LIMIT, value: limit },
+    { key: PAGEANDLIMIT.PAGE, value: `${page}` },
+    { key: PAGEANDLIMIT.LIMIT, value: PAGEANDLIMIT.LIMITVALUE },
   ]);
 
   list.innerHTML = '';
@@ -35,8 +20,9 @@ export async function addCar(list: HTMLDivElement | Element) {
 }
 
 export async function refreshListCar() {
+  const page = +document.querySelectorAll('.pagination__page')[0].innerHTML;
   const list = document.querySelectorAll('.main__garage__list-car')[0];
-  const amount = await addCar(list);
+  const amount = await addCarsList(list, page);
   const current = document.querySelectorAll('.main__garage__info__amount')[0];
   current.innerHTML = `(${amount})`;
 }

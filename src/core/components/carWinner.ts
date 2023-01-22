@@ -1,5 +1,4 @@
 import { IWinner } from '../../types/Interfaces';
-// import { getCar } from '../Data/data';
 
 export class CarWinner {
   id;
@@ -31,14 +30,12 @@ export class CarWinner {
 
     const car = document.createElement('i');
     car.className = 'result__main__car fa-solid fa-truck-monster';
-    // car.style.color = `${(this.num += 1)}`;
     car.style.color = this.color;
 
     carContainer.append(car);
 
     const name = document.createElement('td');
     name.className = 'result__main__name';
-    // name.innerText = `${(this.num += 1)}`;
     name.innerText = this.name;
 
     const wins = document.createElement('td');

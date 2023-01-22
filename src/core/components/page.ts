@@ -1,80 +1,48 @@
 import { getData, getWinners } from '../Data/data';
-import { PAGEANDLIMIT, IQueryParams } from '../../types/Interfaces';
+import { PAGEANDLIMIT, ICar, IWinner } from '../../types/Interfaces';
 import { refreshListCar } from './addCar';
 import { refreshListWinners } from './refreshList';
 
-export async function changePageNumber(e: Event) {
-  const target = <Element>e.target;
-  const page = <HTMLDivElement>document.querySelectorAll('.pagination__page')[0];
-  const currentPage = +page.innerText;
-
+export async function changePageGarage(e: Event) {
   const data = await getData([
     { key: PAGEANDLIMIT.PAGE, value: PAGEANDLIMIT.PAGEVALUE },
     { key: PAGEANDLIMIT.LIMIT, value: PAGEANDLIMIT.LIMITVALUE },
   ]);
 
-  const amountPages = data.count / Number(PAGEANDLIMIT.LIMITVALUE);
+  const page = changePageNumber(e, data, PAGEANDLIMIT.LIMITVALUE);
 
-  if (amountPages <= currentPage && target.classList.contains('pagination__button-next')) return;
-
-  if (currentPage == 1 && target.classList.contains('pagination__button-prev')) return;
-
-  let newPage: number;
-
-  if (target.classList.contains('pagination__button-next')) newPage = currentPage + 1;
-  else newPage = currentPage - 1;
-
-  const arrayString = localStorage.getItem('AsyncRaceKeyAndValue');
-
-  if (arrayString !== null) {
-    const arrayKeyValue: IQueryParams[] = JSON.parse(arrayString);
-
-    arrayKeyValue.forEach((item) => {
-      if (item.key == PAGEANDLIMIT.PAGE) item.value = `${newPage}`;
-    });
-
-    page.innerText = `${newPage}`;
-
-    localStorage.setItem('AsyncRaceKeyAndValue', JSON.stringify(arrayKeyValue));
-    refreshListCar();
-  }
+  if (page) refreshListCar();
+  return page;
 }
 
-export async function changePageNumberWinner(e: Event) {
-  const target = <Element>e.target;
-  const page = <HTMLDivElement>document.querySelectorAll('.pagination__page')[0];
-  const currentPage = +page.innerText;
-
+export async function changePageWinner(e: Event) {
   const data = await getWinners([
     { key: PAGEANDLIMIT.PAGE, value: PAGEANDLIMIT.PAGEVALUEWIN },
     { key: PAGEANDLIMIT.LIMIT, value: PAGEANDLIMIT.LIMITVALUEWIN },
   ]);
 
-  // eslint-disable-next-line no-console
-  console.log(data);
-  const amountPages = data.count / Number(PAGEANDLIMIT.LIMITVALUEWIN);
+  const page = changePageNumber(e, data, PAGEANDLIMIT.LIMITVALUEWIN);
 
-  if (amountPages <= currentPage && target.classList.contains('pagination__button-next')) return;
+  if (page) refreshListWinners(`${page}`);
+}
 
-  if (currentPage == 1 && target.classList.contains('pagination__button-prev')) return;
+function changePageNumber(e: Event, data: { data: ICar | IWinner; count: number }, limit: string) {
+  const target = <Element>e.target;
+  const page = <HTMLDivElement>document.querySelectorAll('.pagination__page')[0];
+  const currentPage = +page.innerText;
+
+  const amountPages = data.count / Number(limit);
+
+  if (amountPages <= currentPage && target.classList.contains('pagination__button-next')) return false;
+
+  if (currentPage == 1 && target.classList.contains('pagination__button-prev')) return false;
 
   let newPage: number;
 
   if (target.classList.contains('pagination__button-next')) newPage = currentPage + 1;
   else newPage = currentPage - 1;
 
-  const arrayString = localStorage.getItem('AsyncRaceKeyAndValueWinner');
+  page.innerText = `${newPage}`;
 
-  if (arrayString !== null) {
-    const arrayKeyValue: IQueryParams[] = JSON.parse(arrayString);
-
-    arrayKeyValue.forEach((item) => {
-      if (item.key == PAGEANDLIMIT.PAGE) item.value = `${newPage}`;
-    });
-
-    page.innerText = `${newPage}`;
-
-    localStorage.setItem('AsyncRaceKeyAndValueWinner', JSON.stringify(arrayKeyValue));
-    refreshListWinners();
-  }
+  return newPage;
 }

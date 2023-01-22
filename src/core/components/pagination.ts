@@ -1,4 +1,5 @@
-import { changePageNumber } from './page';
+import { changePageGarage, changePageWinner } from './page';
+import { path } from '../Data/data';
 
 export class Pagination {
   static render() {
@@ -10,8 +11,12 @@ export class Pagination {
     prev.innerText = 'Prev';
 
     prev.addEventListener('click', async (e) => {
-      await changePageNumber(e);
+      checkPage(e);
     });
+
+    const pageName = document.createElement('div');
+    pageName.className = 'pagination__page-name';
+    pageName.innerText = 'Page: ';
 
     const page = document.createElement('div');
     page.className = 'pagination__page';
@@ -22,10 +27,37 @@ export class Pagination {
     next.innerText = 'Next';
 
     next.addEventListener('click', async (e) => {
-      await changePageNumber(e);
+      checkPage(e);
     });
 
-    container.append(prev, page, next);
+    container.append(prev, pageName, page, next);
     return container;
   }
 }
+
+const clearInput = () => {
+  const changeBtn = document.querySelectorAll('.control__change__change-button')[0];
+  const changeText = <HTMLInputElement>document.querySelectorAll('.control__change__input-text')[0];
+  if (!changeBtn.classList.contains('active__change-button')) changeBtn.classList.add('active__change-button');
+  changeText.value = '';
+  changeText.setAttribute('readonly', '');
+};
+
+const returnStatusButton = () => {
+  const race = document.querySelectorAll('.button-container__race')[0];
+  const reset = document.querySelectorAll('.button-container__reset')[0];
+
+  if (race.classList.contains('active-control-button')) race.classList.remove('active-control-button');
+  if (!reset.classList.contains('active-control-button')) reset.classList.add('active-control-button');
+};
+
+const checkPage = async (e: Event) => {
+  const hash = window.location.hash.slice(1);
+  if (hash === path.garage) {
+    const result = await changePageGarage(e);
+    clearInput();
+    if (result) returnStatusButton();
+  } else {
+    await changePageWinner(e);
+  }
+};

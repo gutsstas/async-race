@@ -1,4 +1,4 @@
-import { changePageNumberWinner } from './page';
+import { changePageWinner } from './page';
 
 export class PaginationWinners {
   static render() {
@@ -10,7 +10,7 @@ export class PaginationWinners {
     prev.innerText = 'Prev';
 
     prev.addEventListener('click', async (e) => {
-      await changePageNumberWinner(e);
+      await changePageWinner(e);
     });
 
     const page = document.createElement('div');
@@ -22,7 +22,7 @@ export class PaginationWinners {
     next.innerText = 'Next';
 
     next.addEventListener('click', async (e) => {
-      await changePageNumberWinner(e);
+      await changePageWinner(e);
     });
 
     container.append(prev, page, next);

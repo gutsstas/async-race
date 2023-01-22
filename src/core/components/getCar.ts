@@ -1,24 +1,12 @@
-import { IQueryParams, PAGEANDLIMIT, IWinner } from '../../types/Interfaces';
+import { PAGEANDLIMIT, IWinner } from '../../types/Interfaces';
 import { getData, startCar, sendWinner } from '../Data/data';
 
 export const getCarList = async () => {
-  const arrayString = localStorage.getItem('AsyncRaceKeyAndValue');
-  let page: string | PAGEANDLIMIT = PAGEANDLIMIT.PAGEVALUE;
-  let limit: string | PAGEANDLIMIT = PAGEANDLIMIT.LIMITVALUE;
-
-  if (arrayString !== null) {
-    const arrayKeyValue: IQueryParams[] = JSON.parse(arrayString);
-
-    arrayKeyValue.forEach((item) => {
-      if (item.key == PAGEANDLIMIT.PAGE) page = item.value;
-
-      if (item.key == PAGEANDLIMIT.LIMIT) limit = item.value;
-    });
-  }
+  const page = document.querySelectorAll('.pagination__page')[0].innerHTML;
 
   const data = await getData([
     { key: PAGEANDLIMIT.PAGE, value: page },
-    { key: PAGEANDLIMIT.LIMIT, value: limit },
+    { key: PAGEANDLIMIT.LIMIT, value: PAGEANDLIMIT.LIMITVALUE },
   ]);
 
   return data;
