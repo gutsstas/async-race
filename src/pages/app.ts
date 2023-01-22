@@ -21,6 +21,7 @@ export class App {
     } else if (idPage === PageIds.Winners) {
       page = SingletonWinners.getInstance();
     } else {
+      window.location.hash = `${PageIds.Garage}`;
       page = SingletonGarage.getInstance();
     }
 

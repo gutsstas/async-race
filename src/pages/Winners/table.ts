@@ -1,12 +1,14 @@
-import { IWinner, ICar } from '../../types/Interfaces';
-import { CarWinner } from '../../core/components/carWinner';
-import { getData } from '../../core/Data/data';
+import { IWinner, SORT } from '../../types/Interfaces';
+import { sortByWinsOrTime } from '../../core/components/sorting';
+import { addItemListWinner } from '../../core/components/itemListWinners';
 
 export class ResultsWinners {
   dataObj;
+  page;
 
-  constructor(dataObj: { data: IWinner[]; count: number }) {
+  constructor(dataObj: { data: IWinner[]; count: number }, page?: number) {
     this.dataObj = dataObj;
+    this.page = page;
   }
 
   async render() {
@@ -40,23 +42,39 @@ export class ResultsWinners {
 
     const wins = document.createElement('th');
     wins.className = 'result__header__wins';
-    wins.innerText = 'Wins';
+
+    const winsName = document.createElement('span');
+    winsName.className = 'result__header__wins__name';
+    winsName.innerText = 'Wins';
+
+    const winsUP = document.createElement('i');
+    winsUP.className = 'result__header__wins__UP fa-solid fa-chevron-up table__UP-active';
+
+    wins.append(winsName, winsUP);
+
+    wins.addEventListener('click', async () => {
+      sortByWinsOrTime(winsUP, timeUP, SORT.WINS);
+    });
 
     const time = document.createElement('th');
     time.className = 'result__header__time';
-    time.innerText = 'Best time(seconds)';
+
+    const timeName = document.createElement('span');
+    timeName.className = 'result__header__time__name';
+    timeName.innerText = 'Best time(seconds)';
+
+    const timeUP = document.createElement('i');
+    timeUP.className = 'result__header__time__UP fa-solid fa-chevron-up table__UP-active';
+
+    time.append(timeName, timeUP);
+
+    time.addEventListener('click', async () => {
+      sortByWinsOrTime(timeUP, winsUP, SORT.TIME);
+    });
 
     header.append(number, car, name, wins, time);
 
-    const arrayCar = (await getData([])).data;
-
-    this.dataObj.data.forEach(async (item: IWinner, index: number) => {
-      const findCar = arrayCar.find((i: ICar) => i.id == item.id);
-
-      const car = new CarWinner(item, index, findCar.name, findCar.color);
-
-      tbody.append(car.render());
-    });
+    await addItemListWinner(this.dataObj, this.page, tbody);
 
     return container;
   }

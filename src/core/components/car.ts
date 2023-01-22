@@ -36,6 +36,10 @@ export class Car {
       text.value = this.name;
       const color = <HTMLInputElement>document.querySelectorAll('.control__change__input-color')[0];
       color.value = this.color;
+      const changeBtn = <HTMLInputElement>document.querySelectorAll('.control__change__change-button')[0];
+      changeBtn.classList.remove('active__change-button');
+      const inputText = <HTMLInputElement>document.querySelectorAll('.control__change__input-text')[0];
+      inputText.removeAttribute('readonly');
     });
 
     const remove = document.createElement('button');
@@ -69,6 +73,11 @@ export class Car {
     svg.style.color = this.color;
     svg.style.left = '0';
 
+    const finish = document.createElement('img');
+    finish.className = 'car__animation__finish';
+    finish.src = './assets/free-icon-finish-flag-1247820.png';
+    finish.alt = 'finish';
+
     const carBlock = document.createElement('div');
     carBlock.className = 'car__animation__car-block';
 
@@ -76,11 +85,12 @@ export class Car {
     stop.className = 'car__animation__button-block__stop active-button';
     stop.innerText = 'B';
 
-    carBlock.append(svg);
+    carBlock.append(svg, finish);
     let timer: NodeJS.Timer;
 
     start.addEventListener('click', async () => {
       if (!this.id) return;
+
       if (start.classList.contains('active-button')) return;
 
       const time = await setStartedCar(this.id);

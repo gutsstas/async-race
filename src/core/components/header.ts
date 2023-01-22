@@ -4,13 +4,13 @@ export class Header {
     container.className = 'header';
     const garageBtn = document.createElement('button');
     garageBtn.className = 'header__button garage';
-    garageBtn.textContent = 'garageBtn';
+    garageBtn.textContent = 'TO GARAGE';
     garageBtn.addEventListener('click', () => {
       window.location.hash = '/garage';
     });
     const winnersBtn = document.createElement('button');
     winnersBtn.className = 'header__button winners';
-    winnersBtn.textContent = 'winnersBtn';
+    winnersBtn.textContent = 'TO WINNERS';
     winnersBtn.addEventListener('click', () => {
       window.location.hash = '/winners';
     });

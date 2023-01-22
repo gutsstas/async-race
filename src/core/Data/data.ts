@@ -38,6 +38,9 @@ export const removeCar = async (id: number) => {
   await fetch(`${baseURL}${path.garage}/${id}`, {
     method: 'DELETE',
   });
+  await fetch(`${baseURL}${path.winners}/${id}`, {
+    method: 'DELETE',
+  });
 };
 
 export const updateCar = async (id: number, car: ICar) => {
@@ -79,18 +82,18 @@ export const checkWinner = async (id: number) => {
 };
 
 export const sendWinner = async (body: IWinner) => {
-  const res = await fetch(`${baseURL}${path.winners}`, {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  if (!res.ok) {
+  try {
+    const res = await fetch(`${baseURL}${path.winners}`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    await res.json();
+  } catch {
     // eslint-disable-next-line no-console
     console.log('error');
-
     const car = await checkWinner(body.id);
 
     if (body.time < car.time) car.time = body.time;
@@ -109,10 +112,3 @@ export const sendWinner = async (body: IWinner) => {
     });
   }
 };
-
-// export const getWinners = async (queryParams: IQueryParams[]) => {
-//   const res = await fetch(`${baseURL}${path.garage}${getQueryParams(queryParams)}`);
-//   const data = await res.json();
-//   const count = Number(res.headers.get('X-Total-Count'));
-//   return { data, count };
-// };

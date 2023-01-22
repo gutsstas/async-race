@@ -1,28 +1,14 @@
 import { getWinners } from '../Data/data';
-import { PAGEANDLIMIT, IQueryParams } from '../../types/Interfaces';
-import { ResultsWinners } from '../../pages/Winners/table';
+import { PAGEANDLIMIT, SORT } from '../../types/Interfaces';
+import { addItemListWinner } from './itemListWinners';
 
-export async function refreshListWinners() {
-  const arrayString = localStorage.getItem('AsyncRaceKeyAndValueWinner');
-  let page: string | PAGEANDLIMIT = PAGEANDLIMIT.PAGEVALUEWIN;
-  let limit: string | PAGEANDLIMIT = PAGEANDLIMIT.LIMITVALUEWIN;
-
-  if (arrayString !== null) {
-    const arrayKeyValue: IQueryParams[] = JSON.parse(arrayString);
-
-    arrayKeyValue.forEach((item) => {
-      if (item.key == PAGEANDLIMIT.PAGE) page = item.value;
-
-      if (item.key == PAGEANDLIMIT.LIMIT) limit = item.value;
-    });
-  }
-
+export async function refreshListWinners(page: string) {
   const data = await getWinners([
     { key: PAGEANDLIMIT.PAGE, value: page },
-    { key: PAGEANDLIMIT.LIMIT, value: limit },
+    { key: PAGEANDLIMIT.LIMIT, value: PAGEANDLIMIT.LIMITVALUEWIN },
+    { key: SORT.SORT, value: SORT.ACTIVESORT },
+    { key: SORT.ORDER, value: SORT.ACTIVEORDER },
   ]);
 
-  const table = document.querySelectorAll('.main__winners__container')[0];
-  const amount = new ResultsWinners(data);
-  table.innerHTML = (await amount.render()).outerHTML;
+  addItemListWinner(data, +page);
 }

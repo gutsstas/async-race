@@ -1,9 +1,6 @@
 import { Control } from './control';
-// import { getData } from '../../core/Data/data';
-import { addCar } from '../../core/components/addCar';
+import { addCarsList } from '../../core/components/addCar';
 import { Pagination } from '../../core/components/pagination';
-import { IQueryParams } from '../../types/Interfaces';
-import { PAGEANDLIMIT } from '../../types/Interfaces';
 
 export class Garage {
   container: HTMLElement | null = null;
@@ -23,32 +20,17 @@ export class Garage {
 
     const infoAmount = document.createElement('div');
     infoAmount.className = 'main__garage__info__amount';
-    // const data = await getData([
-    //   { key: '_page', value: '1' },
-    //   { key: '_limit', value: '7' },
-    // ]);
-
-    // const count = data.count;
-
-    // infoAmount.innerText = `(${count})`;
-
-    const arrayLocal: IQueryParams[] = [
-      { key: PAGEANDLIMIT.PAGE, value: PAGEANDLIMIT.PAGEVALUE },
-      { key: PAGEANDLIMIT.LIMIT, value: PAGEANDLIMIT.LIMITVALUE },
-    ];
-
-    localStorage.setItem('AsyncRaceKeyAndValue', JSON.stringify(arrayLocal));
 
     infoContainer.append(infoName, infoAmount);
 
     const listCar = document.createElement('div');
     listCar.className = 'main__garage__list-car';
 
-    const count = await addCar(listCar);
+    const count = await addCarsList(listCar, 1);
 
     infoAmount.innerText = `(${count})`;
 
-    container.append(Control.render(), infoContainer, listCar, Pagination.render());
+    container.append(Control.render(), infoContainer, Pagination.render(), listCar);
 
     this.container = container;
     return container;
