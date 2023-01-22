@@ -1,5 +1,5 @@
 .main__garage__car {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .main__garage__car__control {
@@ -13,6 +13,7 @@
 
 .main__garage__car__animation {
   display: flex;
+  height: 42px;
 }
 
 .car__animation__button-block {
@@ -44,13 +45,35 @@
 .car__animation__car-block {
   position: relative;
   margin-left: 20px;
-  /* stylelint-disable-next-line value-no-vendor-prefix */
-  width: -webkit-fill-available;
+  border-bottom: 1px solid rgb(0 0 0);
+  width: stretch;
 }
 
 .car__animation.fa-solid.fa-truck-monster {
   position: absolute;
   left: 0;
   top: 0;
-  font-size: 50px;
+  font-size: 40px;
+}
+
+.car__control__select,
+.car__control__remove {
+  border: none;
+  border-radius: 20px;
+  width: 70px;
+  height: 25px;
+  background-color: #d0def0;
+  cursor: pointer;
+}
+
+.car__control__select:active,
+.car__control__remove:active {
+  background-color: #9fb5d2;
+}
+
+.car__animation__finish {
+  position: absolute;
+  right: 70px;
+  top: 0;
+  height: 100%;
 }

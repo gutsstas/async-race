@@ -24,9 +24,34 @@
   // align-items: center;
   // justify-content: center;
   width: 100px;
+  height: 30px;
   text-align: center;
 }
 
 .main__winners__pagination {
   display: flex;
+}
+
+.result__header__wins,
+.result__header__time {
+  cursor: pointer;
+}
+
+.result__header__time {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result__header__wins__UP,
+.result__header__time__UP {
+  margin-left: 5px;
+}
+
+.table__UP-active {
+  display: none;
+}
+
+.table__UP-rotate {
+  transform: rotate(180deg);
 }
