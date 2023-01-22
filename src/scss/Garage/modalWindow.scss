@@ -1,0 +1,28 @@
+.modal-window__background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(0 0 0 / 65.2%);
+}
+
+.modal-window__window {
+  position: fixed;
+  left: calc(50vw - (150px));
+  top: calc(50vh - (100px));
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 200px;
+  font-size: 30px;
+}
+
+.modal-window__window__text {
+  margin-top: 10px;
+  text-align: center;
+}
