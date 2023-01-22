@@ -19,13 +19,29 @@ export enum PAGEANDLIMIT {
   LIMITVALUEWIN = '3',
 }
 
-export enum SORT {
-  PAGE = '_sort',
-  ORDER = '_order',
-  ID = 'id',
-  WINS = 'wins',
-  TIME = 'time',
-}
+export const SORT = {
+  SORT: '_sort',
+  ORDER: '_order',
+  ID: 'id',
+  WINS: 'wins',
+  TIME: 'time',
+  ASC: 'ASC',
+  DESC: 'DESC',
+  ACTIVESORT: '',
+  ACTIVEORDER: '',
+};
+
+// export enum SORT {
+//   SORT = '_sort',
+//   ORDER = '_order',
+//   ID = 'id',
+//   WINS = 'wins',
+//   TIME = 'time',
+//   ASC = 'ASC',
+//   DESC = 'DESC',
+//   ACTIVESORT = '',
+//   ACTIVEORDER = '',
+// }
 
 export interface IQueryParams {
   key: string;
