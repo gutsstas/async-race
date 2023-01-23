@@ -1,4 +1,4 @@
-import { ICar } from '../../types/Interfaces';
+import { ICar, STATUS } from '../../types/Interfaces';
 import { removeCar, startCar } from '../Data/data';
 import { refreshListCar, selectCar } from './addCar';
 import { setStartedCar, driveCar, draw } from './getCar';
@@ -32,12 +32,16 @@ export class Car {
     select.addEventListener('click', async () => {
       selectCar();
       container.classList.add(ACTIVE.ACTIVECLASS);
+
       const text = <HTMLInputElement>document.querySelectorAll('.control__change__input-text')[0];
       text.value = this.name;
+
       const color = <HTMLInputElement>document.querySelectorAll('.control__change__input-color')[0];
       color.value = this.color;
+
       const changeBtn = <HTMLInputElement>document.querySelectorAll('.control__change__change-button')[0];
       changeBtn.classList.remove('active__change-button');
+
       const inputText = <HTMLInputElement>document.querySelectorAll('.control__change__input-text')[0];
       inputText.removeAttribute('readonly');
     });
@@ -48,8 +52,10 @@ export class Car {
 
     remove.addEventListener('click', async () => {
       if (!this.id) return;
+
       await removeCar(this.id);
       await refreshListCar();
+
       returnStatusButton();
     });
 
@@ -116,8 +122,8 @@ export class Car {
       if (stop.classList.contains('active-button')) return;
 
       await startCar([
-        { key: 'id', value: `${this.id}` },
-        { key: 'status', value: 'stopped' },
+        { key: STATUS.ID, value: `${this.id}` },
+        { key: STATUS.STATUS, value: STATUS.STATUSSTOP },
       ]);
 
       clearInterval(timer);

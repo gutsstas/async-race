@@ -92,8 +92,6 @@ export const sendWinner = async (body: IWinner) => {
   const find = car.data.find((i: IWinner) => i.id == body.id);
 
   if (find !== undefined) {
-    // eslint-disable-next-line no-console
-    console.log('error');
     const car = await checkWinner(body.id);
 
     if (body.time < car.time) car.time = body.time;

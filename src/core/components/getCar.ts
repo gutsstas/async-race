@@ -1,4 +1,4 @@
-import { PAGEANDLIMIT, IWinner } from '../../types/Interfaces';
+import { PAGEANDLIMIT, IWinner, STATUS } from '../../types/Interfaces';
 import { getData, startCar, sendWinner } from '../Data/data';
 
 export const getCarList = async () => {
@@ -14,8 +14,8 @@ export const getCarList = async () => {
 
 export const setStartedCar = async (id: number) => {
   const time = await startCar([
-    { key: 'id', value: `${id}` },
-    { key: 'status', value: 'started' },
+    { key: STATUS.ID, value: `${id}` },
+    { key: STATUS.STATUS, value: STATUS.STATUSSTART },
   ]);
 
   return time;
@@ -36,8 +36,8 @@ export const driveCar = async (id: number, time: number, timerID?: NodeJS.Timer)
   const widthBlock = carBlock.offsetWidth - svg.offsetWidth * 1.5;
 
   const result = await startCar([
-    { key: 'id', value: `${id}` },
-    { key: 'status', value: 'drive' },
+    { key: STATUS.ID, value: `${id}` },
+    { key: STATUS.STATUS, value: STATUS.STATUSDRIVE },
   ]);
 
   if (!result) clearInterval(timer);

@@ -12,10 +12,12 @@ export class Winners {
       const page = this.container.querySelectorAll('.pagination__page')[0].innerHTML;
       refreshListWinners(page);
       const amount = this.container.querySelectorAll('.main__winners__info__amount')[0];
+
       const data = await getWinners([
         { key: PAGEANDLIMIT.PAGE, value: PAGEANDLIMIT.PAGEVALUEWIN },
         { key: PAGEANDLIMIT.LIMIT, value: PAGEANDLIMIT.LIMITVALUEWIN },
       ]);
+
       amount.innerHTML = `(${data.count})`;
       return this.container;
     }

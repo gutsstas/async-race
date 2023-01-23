@@ -1,11 +1,11 @@
 import { Header } from '../core/components/header';
-import { Footer } from '../core/components/footer';
 import { PageIds } from '../types/PageIds';
 import { Garage } from './Garage/garage';
 import { Winners } from './Winners/winners';
 import { SingletonGarage } from '../core/components/SingletonGarage';
 import { SingletonWinners } from '../core/components/SingletonWinners';
 import '../scss/main.scss';
+
 export class App {
   private static container: HTMLElement = document.body;
 
@@ -26,12 +26,11 @@ export class App {
     }
 
     if (page) {
-      // this.previousPage = window.location.hash.slice(1);
       const containerMain: HTMLElement = document.createElement('main');
       containerMain.className = 'main';
       containerMain.id = 'root';
       containerMain.append(await page.render());
-      App.container.append(Header.render(), containerMain, Footer.render());
+      App.container.append(Header.render(), containerMain);
     }
   }
 

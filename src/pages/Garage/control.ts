@@ -32,6 +32,7 @@ export class Control {
         name: inputText.value,
         color: inputColor.value,
       });
+
       await refreshListCar();
       returnStatusButton();
     });
@@ -56,13 +57,16 @@ export class Control {
 
     changeBtn.addEventListener('click', async () => {
       if (changeBtn.classList.contains('active__change-button')) return;
+
       const id = +document.querySelectorAll(`.${ACTIVE.ACTIVECLASS}`)[0].className.replace(/[\D]+/g, '');
       await updateCar(id, { name: changeText.value, color: changeColor.value });
       await refreshListCar();
+
       selectCar();
       changeBtn.classList.add('active__change-button');
       changeText.value = '';
       changeText.setAttribute('readonly', '');
+
       returnStatusButton();
     });
 
@@ -77,10 +81,14 @@ export class Control {
 
     race.addEventListener('click', async () => {
       document.body.classList.add('block-body');
+
       if (race.classList.contains('active-control-button')) return;
+
       race.classList.add('active-control-button');
       generation.classList.add('active-control-button');
+
       await startRace();
+
       reset.classList.remove('active-control-button');
       generation.classList.remove('active-control-button');
     });

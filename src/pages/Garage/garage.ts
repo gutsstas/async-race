@@ -4,10 +4,12 @@ import { Pagination } from '../../core/components/pagination';
 
 export class Garage {
   container: HTMLElement | null = null;
+
   async render() {
     if (this.container) {
       return this.container;
     }
+
     const container = document.createElement('div');
     container.className = 'main__garage';
 

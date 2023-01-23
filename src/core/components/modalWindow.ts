@@ -27,10 +27,15 @@ export class ModalWindow {
     text.className = 'modal-window__window__text';
     text.innerText = `${this.car} arrived first (${this.time}s)`;
 
+    const footer = document.createElement('div');
+    footer.className = 'modal-window__window__footer';
+    footer.innerText = 'Please wait until the race is over...';
+
     info.style.color = `${this.color}`;
     text.style.color = `${this.color}`;
+    footer.style.color = `${this.color}`;
 
-    modal.append(info, text);
+    modal.append(info, text, footer);
 
     background.addEventListener('click', () => {
       container.remove();
