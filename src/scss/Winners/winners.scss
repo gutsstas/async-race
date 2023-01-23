@@ -1,28 +1,12 @@
 .main__winners__info {
   display: flex;
+  margin-top: 20px;
+  margin-left: 10px;
+  font-size: 20px;
 }
-
-// .result__header {
-//   display: flex;
-// }
-
-// .result__header > * {
-//   margin-left: 10px;
-// }
-
-// .result__main__car {
-//   display: flex;
-// }
-
-// .result__main__car > * {
-//   margin-left: 10px;
-// }
 
 .main__winners__container td,
 .main__winners__container th {
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
   width: 100px;
   height: 30px;
   text-align: center;
