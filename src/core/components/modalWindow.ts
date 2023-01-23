@@ -29,7 +29,7 @@ export class ModalWindow {
 
     const footer = document.createElement('div');
     footer.className = 'modal-window__window__footer';
-    footer.innerText = 'Please wait until the race is over...';
+    footer.innerText = 'Please wait until the race is over and then click...';
 
     info.style.color = `${this.color}`;
     text.style.color = `${this.color}`;
@@ -37,7 +37,7 @@ export class ModalWindow {
 
     modal.append(info, text, footer);
 
-    background.addEventListener('click', () => {
+    container.addEventListener('click', () => {
       container.remove();
     });
 
