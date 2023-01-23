@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  margin: 10px 0 0 10px;
+}
+
+.header__button {
+  border: none;
+  border-radius: 25px;
+  width: 100px;
+  height: 25px;
+  background-color: #b0b0b0;
+  cursor: pointer;
+}
+
+.header__button.garage {
+  margin-right: 10px;
+}
+
+.header__button:active {
+  background-color: #777676;
+}
+
+.header__button:hover {
+  background-color: #8d8b8b;
+}
