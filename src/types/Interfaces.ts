@@ -16,7 +16,7 @@ export enum PAGEANDLIMIT {
   PAGEVALUE = '1',
   LIMITVALUE = '7',
   PAGEVALUEWIN = '1',
-  LIMITVALUEWIN = '3',
+  LIMITVALUEWIN = '7',
 }
 
 export const SORT = {

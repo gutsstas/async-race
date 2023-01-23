@@ -20,9 +20,16 @@ export async function addCarsList(list: HTMLDivElement | Element, page: number) 
 }
 
 export async function refreshListCar() {
-  const page = +document.querySelectorAll('.pagination__page')[0].innerHTML;
+  const page = document.querySelectorAll('.pagination__page')[0];
+  let currentPage = +page.innerHTML;
   const list = document.querySelectorAll('.main__garage__list-car')[0];
-  const amount = await addCarsList(list, page);
+
+  if (list.childNodes.length === 1 && currentPage !== 1) {
+    currentPage -= 1;
+    page.innerHTML = `${currentPage}`;
+  }
+
+  const amount = await addCarsList(list, currentPage);
   const current = document.querySelectorAll('.main__garage__info__amount')[0];
   current.innerHTML = `(${amount})`;
 }

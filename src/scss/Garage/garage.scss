@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+.block-body {
+  pointer-events: none;
+}
+
 .main__garage {
   margin-top: 20px;
   margin-left: 20px;

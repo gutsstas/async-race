@@ -1,8 +1,8 @@
-// import { getData } from '../Data/data';
 import { ICar } from '../../types/Interfaces';
 import { removeCar, startCar } from '../Data/data';
 import { refreshListCar, selectCar } from './addCar';
 import { setStartedCar, driveCar, draw } from './getCar';
+import { returnStatusButton } from './pagination';
 
 export enum ACTIVE {
   ACTIVECLASS = 'active-main__garage__car',
@@ -50,6 +50,7 @@ export class Car {
       if (!this.id) return;
       await removeCar(this.id);
       await refreshListCar();
+      returnStatusButton();
     });
 
     const name = document.createElement('div');

@@ -43,11 +43,13 @@ const clearInput = () => {
   changeText.setAttribute('readonly', '');
 };
 
-const returnStatusButton = () => {
+export const returnStatusButton = () => {
   const race = document.querySelectorAll('.button-container__race')[0];
   const reset = document.querySelectorAll('.button-container__reset')[0];
+  const gen = document.querySelectorAll('.button-container__generation')[0];
 
   if (race.classList.contains('active-control-button')) race.classList.remove('active-control-button');
+  if (gen.classList.contains('active-control-button')) gen.classList.remove('active-control-button');
   if (!reset.classList.contains('active-control-button')) reset.classList.add('active-control-button');
 };
 

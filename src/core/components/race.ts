@@ -16,21 +16,20 @@ export const startRace = async () => {
   const arrayTime = await Promise.all(arrayId.map(async (id: number) => await setStartedCar(id)));
   let find = false;
 
-  const arrayTimer = await Promise.allSettled(
+  const arrayTimer = await Promise.all(
     arrayTime.map(async (time: number, index: number) => {
       const prom = await driveCar(arrayId[index], time);
 
       if (!find && prom.result !== false) {
-        console.log('Победил', arrayId[index], objData.data[index]);
         const modal = new ModalWindow(objData.data[index].name, arrayTime[index], objData.data[index].color);
         document.body.append(modal.render());
         sendWinner({ id: arrayId[index], wins: 1, time: arrayTime[index] });
         find = true;
       }
+      return prom;
     })
   );
-  // eslint-disable-next-line no-console
-  console.log(arrayTimer);
-
-  arrayTime.forEach((time) => clearInterval(time));
+  if (document.body.classList.contains('block-body')) document.body.classList.remove('block-body');
+  arrayTimer.forEach((time) => clearInterval(time.timer));
+  return arrayTimer;
 };

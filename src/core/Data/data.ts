@@ -38,9 +38,15 @@ export const removeCar = async (id: number) => {
   await fetch(`${baseURL}${path.garage}/${id}`, {
     method: 'DELETE',
   });
-  await fetch(`${baseURL}${path.winners}/${id}`, {
-    method: 'DELETE',
-  });
+
+  const car = await getWinners([]);
+  const find = car.data.find((i: IWinner) => i.id == id);
+
+  if (find !== undefined) {
+    await fetch(`${baseURL}${path.winners}/${id}`, {
+      method: 'DELETE',
+    });
+  }
 };
 
 export const updateCar = async (id: number, car: ICar) => {
@@ -82,16 +88,10 @@ export const checkWinner = async (id: number) => {
 };
 
 export const sendWinner = async (body: IWinner) => {
-  try {
-    const res = await fetch(`${baseURL}${path.winners}`, {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    await res.json();
-  } catch {
+  const car = await getWinners([]);
+  const find = car.data.find((i: IWinner) => i.id == body.id);
+
+  if (find !== undefined) {
     // eslint-disable-next-line no-console
     console.log('error');
     const car = await checkWinner(body.id);
@@ -106,6 +106,14 @@ export const sendWinner = async (body: IWinner) => {
         wins: car.wins,
         time: car.time,
       }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } else {
+    await fetch(`${baseURL}${path.winners}`, {
+      method: 'POST',
+      body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
       },

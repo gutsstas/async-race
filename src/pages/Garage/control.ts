@@ -5,6 +5,7 @@ import { generationArrayCar } from '../../core/components/generationCar';
 import { ICar } from '../../types/Interfaces';
 import { getCarList } from '../../core/components/getCar';
 import { startRace } from '../../core/components/race';
+import { returnStatusButton } from '../../core/components/pagination';
 
 export class Control {
   static render() {
@@ -32,6 +33,7 @@ export class Control {
         color: inputColor.value,
       });
       await refreshListCar();
+      returnStatusButton();
     });
 
     createBlock.append(inputText, inputColor, createBtn);
@@ -61,6 +63,7 @@ export class Control {
       changeBtn.classList.add('active__change-button');
       changeText.value = '';
       changeText.setAttribute('readonly', '');
+      returnStatusButton();
     });
 
     changeBlock.append(changeText, changeColor, changeBtn);
@@ -73,6 +76,7 @@ export class Control {
     race.innerText = 'Race';
 
     race.addEventListener('click', async () => {
+      document.body.classList.add('block-body');
       if (race.classList.contains('active-control-button')) return;
       race.classList.add('active-control-button');
       generation.classList.add('active-control-button');
@@ -87,11 +91,11 @@ export class Control {
 
     reset.addEventListener('click', async () => {
       if (reset.classList.contains('active-control-button')) return;
-      reset.classList.add('active-control-button');
-      generation.classList.add('active-control-button');
+
       const objData = await getCarList();
       const arrayId = objData.data.map((i: ICar) => i.id);
-      await Promise.allSettled(
+
+      await Promise.all(
         arrayId.map(async (id: number) => {
           await startCar([
             { key: 'id', value: `${id}` },
@@ -99,12 +103,15 @@ export class Control {
           ]);
         })
       );
+
       const listCar = <NodeListOf<HTMLElement>>document.querySelectorAll('.fa-solid.fa-truck-monster');
+      const buttonA = document.querySelectorAll('.car__animation__button-block__start');
+
       for (let i = 0; i < listCar.length; i++) {
         listCar[i].style.left = '0';
+        buttonA[i].classList.toggle('active-button');
       }
-      race.classList.remove('active-control-button');
-      generation.classList.remove('active-control-button');
+      returnStatusButton();
     });
 
     const generation = document.createElement('button');
@@ -114,8 +121,11 @@ export class Control {
     generation.addEventListener('click', async () => {
       if (generation.classList.contains('active-control-button')) return;
       const arrayCars = generationArrayCar();
+
       await Promise.all(arrayCars.map((car) => createCar(car)));
+
       await refreshListCar();
+      returnStatusButton();
     });
 
     buttonContainer.append(race, reset, generation);
